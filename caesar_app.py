@@ -56,25 +56,31 @@ key_option = OptionMenu(root, default_key, *key_list)
 key_option.grid(row=4, column=0)
 
 
-# will make the app do the thing
+# encrypts the entered message
 def encrypt_msg():
     user_input = str_entry.get()
     key = default_key.get()
     # print(user_input + " " + key)
-    encrypt_caesar(alpha, user_input, key)
+    encrypt_caesar(alpha_capital, alpha_lower, user_input, key)
 
 
-alpha = (list(string.ascii_letters)) # litet 'z' loopar på stora bokstäver TODO
+alpha_capital = (list(string.ascii_uppercase))
+alpha_lower = (list(string.ascii_lowercase))
 
-
-def encrypt_caesar(lst, message, key):
+#TODO break out method for exchanging the letters
+def encrypt_caesar(lst_cap, lst_low, message, key):
     enc_user_input = ""
     for c in message:
-        if c.isalpha():
-            for l in lst:
+        if c.isupper():
+            for l in lst_cap:
                 if l == c:
-                    key_index = ((lst.index(c)+int(key)) % len(lst)) # get index of letter to exchange with
-                    enc_user_input += str(lst[key_index]) # letters are added to the encrypted message.
+                    key_index = ((lst_cap.index(c)+int(key)) % len(lst_cap)) # get index of letter to exchange with
+                    enc_user_input += str(lst_cap[key_index]) # letters are added to the encrypted message.
+        elif c.lower():
+            for l in lst_low:
+                if l == c:
+                    key_index = ((lst_low.index(c)+int(key)) % len(lst_low)) # get index of letter to exchange with
+                    enc_user_input += str(lst_low[key_index]) # letters are added to the encrypted message.
         elif c.isdigit():
             enc_user_input += str((int(c) + int(key)) % 10)
         else:
