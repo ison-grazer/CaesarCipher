@@ -18,5 +18,5 @@ def encrypt_caesar(lst_cap, lst_low, message, key):
         else:
             enc_user_input += c
     print(enc_user_input)
-
+    return enc_user_input
 
